@@ -42,18 +42,18 @@
         document.getElementById("kekka").innerHTML = bingo_array[index];
         if(bingo_array[index] === undefined){//今の抽選結果
             document.getElementById("kekka").innerHTML = "抽選終了！";
+        }else{  //当選したログを表示
+            const bingo_log_base = document.getElementById("logs");
+            const bingo_log_element = document.createElement("li");
+            const textnode = document.createTextNode(bingo_array[index]);
+            bingo_log_element.appendChild(textnode);
+            bingo_log_base.appendChild(bingo_log_element);
         }
         if(!before_bingo == 0){//一つ前の抽選結果
             document.getElementById("before").innerHTML = before_bingo;
         }else{
             document.getElementById("before").innerHTML = "抽選中…";
         }
-        //今までの当選を表示していく
-        const bingo_log_base = document.getElementById("logs");
-        const bingo_log_element = document.createElement("li");
-        const textnode = document.createTextNode(bingo_array[index]);
-        bingo_log_element.appendChild(textnode);
-        bingo_log_base.appendChild(bingo_log_element);
         //後の処理
         before_bingo = bingo_array[index];
         bingo_array.shift();
