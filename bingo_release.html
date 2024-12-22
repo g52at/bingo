@@ -9,7 +9,6 @@
 
 <button id="bingo_botton" onclick="get_bingo();">bingo!</button>
 <button onclick="randomizing();">リセット</button>
-<button onclick="roll();">ロール開始</button>
 </body>
 <script>
     var bingo_max = 20;//ビンゴの最大値
@@ -32,21 +31,48 @@
         }
         index = 0;
         console.log("リセット完了");
+        document.getElementById("kekka").innerHTML = "リセット完了！";
+        document.getElementById("before").innerHTML = "リセット完了！";
     }
     
     
     function get_bingo(){//ビンゴのメイン処理
         document.getElementById("kekka").innerHTML = bingo_array[index];
-        document.getElementById("before").innerHTML = before_bingo;
+        if(bingo_array[index] === undefined){
+            document.getElementById("kekka").innerHTML = "抽選終了！";
+        }
+        if(!before_bingo == 0){
+            document.getElementById("before").innerHTML = before_bingo;
+        }else{
+            document.getElementById("before").innerHTML = "抽選中…";
+        }
         before_bingo = bingo_array[index];
         bingo_array.shift();
         if (bingo_array.length < index){
             document.getElementById("kekka").innerHTML = "全部出たはずです…"
         }
     }
-    
-    //配列に残ってる数字を表示して1秒で別のランダムな数字を出す
-    
+/*アニメーションの実装
+    var i = 0;
+    var timerId = 0;
+    function sayHello() { //タイマー処理
+        if (!)
+            document.getElementById('kekka').textContent = bingo_array[i]; //置換元のとこを書き換えてる
+        timerId = setTimeout(sayHello, refleshlate);
+        i++;
+        if(i > 100){// 100を越えて暴走しないように
+            i = 0;
+        }
+    }
+    setTimeout(() => {//暴走対策、カウンターが一定以上でリミッターがかかる
+      clearTimeout(timerId);
+    }, 500)
+    document.getElementById('kekka').addEventListener('click', () => {
+        timerId = 0;
+        sayHello();
+    });
+
+ここまで*/
     window.onload = randomizing();// 自動実行
     </script>
 </html>
