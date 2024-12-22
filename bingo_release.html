@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head></head>
+
+
+<br>今の結果<p id="kekka"></p><br>
+前の結果<p id="before"></p><br>
+
+
+<button id="bingo_botton" onclick="get_bingo();">bingo!</button>
+<button onclick="randomizing();">リセット</button>
+<button onclick="roll();">ロール開始</button>
+</body>
+<script>
+    var bingo_max = 20;//ビンゴの最大値
+    var index = 0;
+    var bingo_array;
+    var before_bingo = 0;
+    let bingo_botton = document.getElementById('bingo_botton').textContent;
+    
+    function randomizing(){
+        var arr = [];
+        bingo_array = []; 
+        for(var i=0; i < bingo_max; i++){
+            arr[i]=i+1;
+        }
+    
+        for(var j = 0, len = arr.length; j < bingo_max; j++, len--) {
+            rndNum = Math.floor(Math.random()*len);
+            bingo_array.push(arr[rndNum]);
+            arr[rndNum] = arr[len-1];
+        }
+        index = 0;
+        console.log("リセット完了");
+    }
+    
+    
+    function get_bingo(){//ビンゴのメイン処理
+        document.getElementById("before").innerHTML = before_bingo;
+        document.getElementById("kekka").innerHTML = bingo_array[index];
+        before_bingo = bingo_array[index];
+        index++;
+        if (bingo_array.length < index){
+            document.getElementById("kekka").innerHTML = "終わり！"
+        }
+    }
+    
+    //配列に残ってる数字を表示して1秒で別のランダムな数字を出す
+    
+    window.onload = randomizing();// 自動実行
+    function roll(){
+        while(j < 10){
+            console.log(bingo_array[j]);
+            j++;
+            if (bingo_array.length < index){
+                document.getElementById("kekka").innerHTML = "終わり！"
+            }   
+        }  
+    }
+    
+    </script>
+
+</html>
