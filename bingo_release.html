@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head></head>
-<body>
+<link href="https://fonts.googleapis.com/earlyaccess/nikukyu.css" rel="stylesheet"><body>
 <br><p id="slot_zone"></p>
-<br>今の結果<p id="kekka"></p>
+<p>結果</p>
+<p id="kekka"></p>
 
-<button id="start_animation">スタート！btn0</button>
-<button id="bingo_botton">ストップ！btn1</button>
-<button id="reset_botton" onclick="reset_check()">リセットbtn2</button>
-
-<br>過去の結果<p id="logs"></p>
+<button id="start_animation">スタート！</button>
+<button id="bingo_botton">ストップ！</button>
+<button id="reset_botton" onclick="reset_check()">リセット</button>
+<p>過去の結果</p>
+<p id="logs"></p>
 
 
 </body>
@@ -26,7 +26,6 @@
     let text = document.getElementById('slot_zone').textContent;
     var btn0 = document.getElementById('start_animation');
     var btn1 = document.getElementById('bingo_botton');
-
 
     function randomizing(){//ビンゴの乱数を配列で出力
         var arr = [];
@@ -67,7 +66,6 @@
 
     }
 
-    //ビンゴスタート
     function get_bingo(){//ビンゴのメイン処理
         document.getElementById("kekka").innerHTML = bingo_array[index];
         if(bingo_array[index] === undefined){//今の抽選結果
@@ -80,8 +78,6 @@
             bingo_log_element.appendChild(textnode);
             bingo_log_base.appendChild(bingo_log_element);
         }
-
-        //後の処理
         document.getElementById('slot_zone').textContent = bingo_array[index];
         before_bingo = bingo_array[index];
         bingo_array.shift();
@@ -89,28 +85,50 @@
             document.getElementById("kekka").innerHTML = "全部出たはずです…"
         }
     }
+
     function reset_check(){//リセットボタンの動作
         if (confirm("ビンゴの中身をリセットしますか？")){
             randomizing();
             alert("リセット完了しました。")
             document.getElementById("kekka").innerHTML = "リセット完了！";
-            document.getElementById("before").innerHTML = "リセット完了！";
             console.log("bingo:手動リセット完了")
             clearTimeout(timerId);
         }
     }
+//キーボード入力
+    const keyzone = document.querySelector('body');
+    document.addEventListener('keydown',(e) => {
+        if(slot_state == true){//ビンゴ停止と同じ
+            if (!slot_state) return;
+            window.clearTimeout(timerId);
+            get_bingo();
+            slot_state = false;
+        }else if(slot_state == false){//ビンゴ開始と同じ
+                timerId = 0;
+            if (!slot_state){
+                sayHello();
+            };
+            slot_state = true;
+        }
+    });
 
+    document.getElementById("slot_zone").innerHTML = 'OK!';
     window.onload = randomizing();// 自動実行
     </script>
     <style>
         *{
+            font-size: large;
+            font-family: "Nikukyu";
             background-color: lightyellow;
-        }
-        p{
             text-align: center;
+
         }
         li{
             list-style-type: none;
+            font-size: 80px;
+        }
+        #slot_zone{
+            font-size: 200px;
         }
     </style>
 </html>
