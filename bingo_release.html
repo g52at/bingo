@@ -4,16 +4,10 @@
 <link href="https://fonts.googleapis.com/earlyaccess/nikukyu.css" rel="stylesheet">
 </head>
 <body>
-<br><p id="slot_zone"></p>
-<p>結果</p>
-<p id="kekka"></p>
-
-<button id="start_animation">スタート</button>
-<button id="bingo_botton">ストップ</button>
-<button id="reset_botton" onclick="reset_check()">リセット</button>
-<p id="logs"></p>
-
-
+    <p id="slot_zone"></p>
+    <button id="start_animation">スタート</button>
+    <button id="bingo_botton">ストップ</button>
+    <p id="logs"></p>
 </body>
 <script>
     var bingo_max = 20;//ビンゴの最大値
@@ -42,8 +36,6 @@
             arr[rndNum] = arr[len-1];
         }
         index = 0;
-        console.log("bingo:リセット完了");
-        document.getElementById("kekka").innerHTML = "準備完了！";
     }
 
     btn0.addEventListener('click', () => {//開始ボタンを押した時の動作
@@ -69,10 +61,8 @@
     }
 
     function get_bingo(){//ビンゴのメイン処理
-        document.getElementById("kekka").innerHTML = bingo_array[index];
         if(bingo_array[index] === undefined){//今の抽選結果
             alert("抽選終了！");
-            document.getElementById("kekka").innerHTML = "抽選終了！";
         }else{  //当選したログを表示
             const bingo_log_base = document.getElementById("logs");
             const bingo_log_element = document.createElement("result");
@@ -84,18 +74,18 @@
         before_bingo = bingo_array[index];
         bingo_array.shift();
         if (bingo_array.length < index){
-            document.getElementById("kekka").innerHTML = "全部出たはずです…"
         }
     }
-
+/*
     function reset_check(){//リセットボタンの動作
         if (confirm("ビンゴの中身をリセットしますか？")){
             randomizing();
             alert("リセット完了しました。")
-            document.getElementById("kekka").innerHTML = "リセット完了！";
-            console.log("bingo:手動リセット完了") 
         }
+        timerId = 0;
+        slot_state = false;
     }
+*/
 //キーボード入力
     const keyzone = document.querySelector('body');
     document.addEventListener('keydown',(e) => {
