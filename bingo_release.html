@@ -3,12 +3,14 @@
 <head></head>
 
 
-<br>今の結果<p id="kekka"></p><br>
-前の結果<p id="before"></p><br>
-
+<br>今の結果<p id="kekka"></p>
+<br>前の結果<p id="before"></p><br>
 
 <button id="bingo_botton" onclick="get_bingo();">bingo!</button>
 <button onclick="randomizing();">リセット</button>
+<br>過去の結果<p id="logs"></p>
+
+
 </body>
 <script>
     var bingo_max = 20;//ビンゴの最大値
@@ -30,7 +32,7 @@
             arr[rndNum] = arr[len-1];
         }
         index = 0;
-        console.log("リセット完了");
+        console.log("bingo:リセット完了");
         document.getElementById("kekka").innerHTML = "リセット完了！";
         document.getElementById("before").innerHTML = "リセット完了！";
     }
@@ -38,14 +40,21 @@
     
     function get_bingo(){//ビンゴのメイン処理
         document.getElementById("kekka").innerHTML = bingo_array[index];
-        if(bingo_array[index] === undefined){
+        if(bingo_array[index] === undefined){//今の抽選結果
             document.getElementById("kekka").innerHTML = "抽選終了！";
         }
-        if(!before_bingo == 0){
+        if(!before_bingo == 0){//一つ前の抽選結果
             document.getElementById("before").innerHTML = before_bingo;
         }else{
             document.getElementById("before").innerHTML = "抽選中…";
         }
+        //今までの当選を表示していく
+        const bingo_log_base = document.getElementById("logs");
+        const bingo_log_element = document.createElement("li");
+        const textnode = document.createTextNode(bingo_array[index]);
+        bingo_log_element.appendChild(textnode);
+        bingo_log_base.appendChild(bingo_log_element);
+        //後の処理
         before_bingo = bingo_array[index];
         bingo_array.shift();
         if (bingo_array.length < index){
