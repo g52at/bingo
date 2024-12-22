@@ -9,8 +9,7 @@
 <br><p id="test"></p>
 
 <button id="start_animation">スタート！btn0</button>
-<button id="kill_animation">停止btn10</button>
-<button id="bingo_botton" onclick="get_bingo();">ストップ！btn1</button>
+<button id="bingo_botton">ストップ！btn1</button>
 <button id="reset_botton" onclick="reset_check()">リセット</button>
 
 <br>過去の結果<p id="logs"></p>
@@ -56,12 +55,12 @@
       //  once: true
     });
 
-    btn1.addEventListener('click',function(){//アニメーションの停止
+    btn1.addEventListener('click',function(){//停止ボタン
         window.clearTimeout(timerId);
+        get_bingo();
     });
 
     function sayHello() { //タイマー処理
-        console.log('こんにちは' + i); //デバッグ用
         document.getElementById('test').textContent = i; //置換元のとこを書き換えてる
         timerId = setTimeout(sayHello, refleshlate);
         i++;
@@ -78,11 +77,6 @@
       window.clearTimeout(timerId);
       document.getElementById('test').textContent = "リセットされました";
     }
-
-
-    document.getElementById('reset_bingo').addEventListener('click',reset_bingo,false);//停止
-
-
 //ビンゴスタート
     function get_bingo(){//ビンゴのメイン処理
         document.getElementById("kekka").innerHTML = bingo_array[index];
