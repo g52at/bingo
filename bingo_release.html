@@ -24,6 +24,8 @@
     var slot_state = false;
     let bingo_botton = document.getElementById('bingo_botton').textContent;
     let text = document.getElementById('slot_zone').textContent;
+    var btn0 = document.getElementById('start_animation');
+    var btn1 = document.getElementById('bingo_botton');
 
 
     function randomizing(){//ビンゴの乱数を配列で出力
@@ -43,48 +45,29 @@
         document.getElementById("kekka").innerHTML = "準備完了！";
     }
 
-    var btn0 = document.getElementById('start_animation');//ルーレットスタート
-    var btn1 = document.getElementById('bingo_botton');//ルーレットストップと結果の表示
-
-    btn0.addEventListener('click', () => {//アニメーションのスタート
+    btn0.addEventListener('click', () => {//開始ボタンを押した時の動作
         timerId = 0;
-        sayHello();
+        if (!slot_state){
+            sayHello();
+        };
         slot_state = true;
-    },{
-      //  once: true
     });
 
-    btn1.addEventListener('click',function(){//停止ボタン
+    btn1.addEventListener('click',function(){//停止ボタンを押した時の動作
         if (!slot_state) return;
         window.clearTimeout(timerId);
         get_bingo();
         slot_state = false;
     });
-/*
-    function sayHello() { //タイマー処理
-        document.getElementById('slot_zone').textContent = i; //置換元のとこを書き換えてる
-        timerId = setTimeout(sayHello, refleshlate);
-        i++;
-        if(i > 100){// 100を越えて暴走しないように
-          i = 0;
-        }
-      }
-*/
-    function sayHello(){
+
+    function sayHello(){//表示を担う
         let slot_number = Math.floor(Math.random() * 100);
         document.getElementById('slot_zone').textContent = slot_number;
-        timerId = setTimeout(sayHello,refleshlate);
+        timerId = setTimeout(sayHello,refleshlate);//reflashlateの単位で実行するので頻度を調整できる
+
     }
 
-    setTimeout(() => {//割り込みで停止
-      clearTimeout(timerId);
-    }, 500)
-
-    function reset_bingo(){//リセット
-      window.clearTimeout(timerId);
-      document.getElementById('slot_zone').textContent = "リセットされました";
-    }
-//ビンゴスタート
+    //ビンゴスタート
     function get_bingo(){//ビンゴのメイン処理
         document.getElementById("kekka").innerHTML = bingo_array[index];
         if(bingo_array[index] === undefined){//今の抽選結果
@@ -97,6 +80,7 @@
             bingo_log_element.appendChild(textnode);
             bingo_log_base.appendChild(bingo_log_element);
         }
+
         //後の処理
         document.getElementById('slot_zone').textContent = bingo_array[index];
         before_bingo = bingo_array[index];
