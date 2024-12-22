@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja">
-<link href="https://fonts.googleapis.com/earlyaccess/nikukyu.css" rel="stylesheet"><body>
+<head>
+<link href="https://fonts.googleapis.com/earlyaccess/nikukyu.css" rel="stylesheet">
+</head>
+<body>
 <br><p id="slot_zone"></p>
 <p>結果</p>
 <p id="kekka"></p>
 
-<button id="start_animation">スタート！</button>
-<button id="bingo_botton">ストップ！</button>
+<button id="start_animation">スタート</button>
+<button id="bingo_botton">ストップ</button>
 <button id="reset_botton" onclick="reset_check()">リセット</button>
-<p>過去の結果</p>
 <p id="logs"></p>
 
 
@@ -73,7 +75,7 @@
             document.getElementById("kekka").innerHTML = "抽選終了！";
         }else{  //当選したログを表示
             const bingo_log_base = document.getElementById("logs");
-            const bingo_log_element = document.createElement("li");
+            const bingo_log_element = document.createElement("result");
             const textnode = document.createTextNode(bingo_array[index]);
             bingo_log_element.appendChild(textnode);
             bingo_log_base.appendChild(bingo_log_element);
@@ -91,8 +93,7 @@
             randomizing();
             alert("リセット完了しました。")
             document.getElementById("kekka").innerHTML = "リセット完了！";
-            console.log("bingo:手動リセット完了")
-            clearTimeout(timerId);
+            console.log("bingo:手動リセット完了") 
         }
     }
 //キーボード入力
@@ -123,12 +124,30 @@
             text-align: center;
 
         }
-        li{
-            list-style-type: none;
-            font-size: 80px;
+        button{
+            padding: 20px;
+            border-radius: 10px;
+        }
+        #start_animation{
+            background-color: cornflowerblue;
+        }
+        #bingo_botton{
+            background-color: deeppink;
+        }
+        #reset_botton{
+            background-color: aquamarine;
+        }
+        result{
+            font-size: 20px;
+            display: inline-block;
+            margin-left: 10px;
+            padding: 10px;
+            color: black;
+            background-color: orange;
+            border-radius: 40px;
         }
         #slot_zone{
-            font-size: 200px;
+            font-size: 100px;
         }
     </style>
 </html>
