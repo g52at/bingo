@@ -36,10 +36,10 @@
     
     
     function get_bingo(){//ビンゴのメイン処理
-        document.getElementById("before").innerHTML = before_bingo;
         document.getElementById("kekka").innerHTML = bingo_array[index];
+        document.getElementById("before").innerHTML = before_bingo;
         before_bingo = bingo_array[index];
-        index++;
+        bingo_array.shift();
         if (bingo_array.length < index){
             document.getElementById("kekka").innerHTML = "全部出たはずです…"
         }
