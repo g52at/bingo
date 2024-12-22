@@ -18,7 +18,7 @@
     var before_bingo = 0;
     let bingo_botton = document.getElementById('bingo_botton').textContent;
     
-    function randomizing(){
+    function randomizing(){//ビンゴの乱数を配列で出力
         var arr = [];
         bingo_array = []; 
         for(var i=0; i < bingo_max; i++){
@@ -41,23 +41,12 @@
         before_bingo = bingo_array[index];
         index++;
         if (bingo_array.length < index){
-            document.getElementById("kekka").innerHTML = "終わり！"
+            document.getElementById("kekka").innerHTML = "全部出たはずです…"
         }
     }
     
     //配列に残ってる数字を表示して1秒で別のランダムな数字を出す
     
     window.onload = randomizing();// 自動実行
-    function roll(){
-        while(j < 10){
-            console.log(bingo_array[j]);
-            j++;
-            if (bingo_array.length < index){
-                document.getElementById("kekka").innerHTML = "終わり！"
-            }   
-        }  
-    }
-    
     </script>
-
 </html>
