@@ -10,7 +10,7 @@
     <p id="logs"></p>
 </body>
 <script>
-    var bingo_max = 20;//ビンゴの最大値
+    var bingo_max = 75;//ビンゴの最大値
     let refleshlate = 10; //速度
     let i = 0;
     let timerId;
@@ -81,7 +81,7 @@
         if (confirm("ビンゴの中身をリセットしますか？")){
             randomizing();
             alert("リセット完了しました。")
-        }
+         }
         timerId = 0;
         slot_state = false;
     }
@@ -128,13 +128,14 @@
             background-color: aquamarine;
         }
         result{
-            font-size: 20px;
+            font-size: 30 px;
             display: inline-block;
             margin-left: 10px;
-            padding: 10px;
+            padding: 12px;
             color: black;
             background-color: orange;
             border-radius: 40px;
+            font-weight: bold;
         }
         #slot_zone{
             font-size: 100px;
