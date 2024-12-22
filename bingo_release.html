@@ -6,7 +6,11 @@
 <br>今の結果<p id="kekka"></p>
 <br>前の結果<p id="before"></p><br>
 
-<button id="bingo_botton" onclick="get_bingo();">bingo!</button>
+<br><p id="test"></p>
+
+<button id="start_animation">スタート！btn0</button>
+<button id="kill_animation">停止btn10</button>
+<button id="bingo_botton" onclick="get_bingo();">ストップ！btn1</button>
 <button id="reset_botton" onclick="reset_check()">リセット</button>
 
 <br>過去の結果<p id="logs"></p>
@@ -37,8 +41,49 @@
         document.getElementById("kekka").innerHTML = "準備完了！";
         document.getElementById("before").innerHTML = "準備完了！";
     }
+//ビンゴのアニメーション
+    let refleshlate = 10; //速度
+    let text = document.getElementById('test').textContent; //置換元を宣言
+    let i = 0;
+    let timerId;
+    var btn0 = document.getElementById('start_animation');
+    var btn1 = document.getElementById('bingo_botton');
+
+    btn0.addEventListener('click', () => {//アニメーションのスタート
+        timerId = 0;
+        sayHello();
+    },{
+      //  once: true
+    });
+
+    btn1.addEventListener('click',function(){//アニメーションの停止
+        window.clearTimeout(timerId);
+    });
+
+    function sayHello() { //タイマー処理
+        console.log('こんにちは' + i); //デバッグ用
+        document.getElementById('test').textContent = i; //置換元のとこを書き換えてる
+        timerId = setTimeout(sayHello, refleshlate);
+        i++;
+        if(i > 100){// 100を越えて暴走しないように
+          i = 0;
+        }
+      }
     
-    
+    setTimeout(() => {//割り込みで停止
+      clearTimeout(timerId);
+    }, 500)
+
+    function reset_bingo(){//リセット
+      window.clearTimeout(timerId);
+      document.getElementById('test').textContent = "リセットされました";
+    }
+
+
+    document.getElementById('reset_bingo').addEventListener('click',reset_bingo,false);//停止
+
+
+//ビンゴスタート
     function get_bingo(){//ビンゴのメイン処理
         document.getElementById("kekka").innerHTML = bingo_array[index];
         if(bingo_array[index] === undefined){//今の抽選結果
