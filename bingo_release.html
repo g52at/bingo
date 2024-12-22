@@ -7,7 +7,8 @@
 <br>前の結果<p id="before"></p><br>
 
 <button id="bingo_botton" onclick="get_bingo();">bingo!</button>
-<button onclick="randomizing();">リセット</button>
+<button id="reset_botton" onclick="reset_check()">リセット</button>
+
 <br>過去の結果<p id="logs"></p>
 
 
@@ -33,14 +34,15 @@
         }
         index = 0;
         console.log("bingo:リセット完了");
-        document.getElementById("kekka").innerHTML = "リセット完了！";
-        document.getElementById("before").innerHTML = "リセット完了！";
+        document.getElementById("kekka").innerHTML = "準備完了！";
+        document.getElementById("before").innerHTML = "準備完了！";
     }
     
     
     function get_bingo(){//ビンゴのメイン処理
         document.getElementById("kekka").innerHTML = bingo_array[index];
         if(bingo_array[index] === undefined){//今の抽選結果
+            alert("抽選終了！");
             document.getElementById("kekka").innerHTML = "抽選終了！";
         }else{  //当選したログを表示
             const bingo_log_base = document.getElementById("logs");
@@ -61,6 +63,16 @@
             document.getElementById("kekka").innerHTML = "全部出たはずです…"
         }
     }
+    function reset_check(){//リセットボタンの動作
+        if (confirm("ビンゴの中身をリセットしますか？")){
+            randomizing();
+            alert("リセット完了しました。")
+            document.getElementById("kekka").innerHTML = "リセット完了！";
+            document.getElementById("before").innerHTML = "リセット完了！";
+            console.log("bingo:手動リセット完了")
+        }
+    }
+
 /*アニメーションの実装
     var i = 0;
     var timerId = 0;
