@@ -62,7 +62,7 @@
         get_bingo();
         slot_state = false;
     });
-
+/*
     function sayHello() { //タイマー処理
         document.getElementById('test').textContent = i; //置換元のとこを書き換えてる
         timerId = setTimeout(sayHello, refleshlate);
@@ -71,6 +71,12 @@
           i = 0;
         }
       }
+*/
+    function sayHello(){
+        let slot_number = Math.floor(Math.random() * 100);
+        document.getElementById('test').textContent = slot_number;
+        timerId = setTimeout(sayHello,refleshlate);
+    }
 
     setTimeout(() => {//割り込みで停止
       clearTimeout(timerId);
