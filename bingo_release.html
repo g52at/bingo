@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head></head>
-
-
+<body>
+<br><p id="test"></p>
 <br>今の結果<p id="kekka"></p>
 <br>前の結果<p id="before"></p><br>
-
-<br><p id="test"></p>
 
 <button id="start_animation">スタート！btn0</button>
 <button id="bingo_botton">ストップ！btn1</button>
@@ -18,11 +16,17 @@
 </body>
 <script>
     var bingo_max = 20;//ビンゴの最大値
+    let refleshlate = 10; //速度
+    let i = 0;
+    let timerId;
     var index = 0;
     var bingo_array;
     var before_bingo = 0;
+    var slot_state = false;
     let bingo_botton = document.getElementById('bingo_botton').textContent;
-    
+    let text = document.getElementById('test').textContent;
+
+
     function randomizing(){//ビンゴの乱数を配列で出力
         var arr = [];
         bingo_array = []; 
@@ -40,24 +44,23 @@
         document.getElementById("kekka").innerHTML = "準備完了！";
         document.getElementById("before").innerHTML = "準備完了！";
     }
-//ビンゴのアニメーション
-    let refleshlate = 10; //速度
-    let text = document.getElementById('test').textContent; //置換元を宣言
-    let i = 0;
-    let timerId;
-    var btn0 = document.getElementById('start_animation');
-    var btn1 = document.getElementById('bingo_botton');
+
+    var btn0 = document.getElementById('start_animation');//ルーレットスタート
+    var btn1 = document.getElementById('bingo_botton');//ルーレットストップと結果の表示
 
     btn0.addEventListener('click', () => {//アニメーションのスタート
         timerId = 0;
         sayHello();
+        slot_state = true;
     },{
       //  once: true
     });
 
     btn1.addEventListener('click',function(){//停止ボタン
+        if (!slot_state) return;
         window.clearTimeout(timerId);
         get_bingo();
+        slot_state = false;
     });
 
     function sayHello() { //タイマー処理
@@ -68,7 +71,7 @@
           i = 0;
         }
       }
-    
+
     setTimeout(() => {//割り込みで停止
       clearTimeout(timerId);
     }, 500)
@@ -96,6 +99,7 @@
             document.getElementById("before").innerHTML = "抽選中…";
         }
         //後の処理
+        document.getElementById('test').textContent = bingo_array[index];
         before_bingo = bingo_array[index];
         bingo_array.shift();
         if (bingo_array.length < index){
@@ -112,27 +116,14 @@
         }
     }
 
-/*アニメーションの実装
-    var i = 0;
-    var timerId = 0;
-    function sayHello() { //タイマー処理
-        if (!)
-            document.getElementById('kekka').textContent = bingo_array[i]; //置換元のとこを書き換えてる
-        timerId = setTimeout(sayHello, refleshlate);
-        i++;
-        if(i > 100){// 100を越えて暴走しないように
-            i = 0;
-        }
-    }
-    setTimeout(() => {//暴走対策、カウンターが一定以上でリミッターがかかる
-      clearTimeout(timerId);
-    }, 500)
-    document.getElementById('kekka').addEventListener('click', () => {
-        timerId = 0;
-        sayHello();
-    });
-
-ここまで*/
     window.onload = randomizing();// 自動実行
     </script>
+    <style>
+        *{
+            background-color: lightyellow;
+        }
+        p{
+            text-align: center;
+        }
+    </style>
 </html>
