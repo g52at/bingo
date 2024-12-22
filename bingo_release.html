@@ -2,13 +2,12 @@
 <html lang="ja">
 <head></head>
 <body>
-<br><p id="test"></p>
+<br><p id="slot_zone"></p>
 <br>今の結果<p id="kekka"></p>
-<br>前の結果<p id="before"></p><br>
 
 <button id="start_animation">スタート！btn0</button>
 <button id="bingo_botton">ストップ！btn1</button>
-<button id="reset_botton" onclick="reset_check()">リセット</button>
+<button id="reset_botton" onclick="reset_check()">リセットbtn2</button>
 
 <br>過去の結果<p id="logs"></p>
 
@@ -24,7 +23,7 @@
     var before_bingo = 0;
     var slot_state = false;
     let bingo_botton = document.getElementById('bingo_botton').textContent;
-    let text = document.getElementById('test').textContent;
+    let text = document.getElementById('slot_zone').textContent;
 
 
     function randomizing(){//ビンゴの乱数を配列で出力
@@ -42,7 +41,6 @@
         index = 0;
         console.log("bingo:リセット完了");
         document.getElementById("kekka").innerHTML = "準備完了！";
-        document.getElementById("before").innerHTML = "準備完了！";
     }
 
     var btn0 = document.getElementById('start_animation');//ルーレットスタート
@@ -64,7 +62,7 @@
     });
 /*
     function sayHello() { //タイマー処理
-        document.getElementById('test').textContent = i; //置換元のとこを書き換えてる
+        document.getElementById('slot_zone').textContent = i; //置換元のとこを書き換えてる
         timerId = setTimeout(sayHello, refleshlate);
         i++;
         if(i > 100){// 100を越えて暴走しないように
@@ -74,7 +72,7 @@
 */
     function sayHello(){
         let slot_number = Math.floor(Math.random() * 100);
-        document.getElementById('test').textContent = slot_number;
+        document.getElementById('slot_zone').textContent = slot_number;
         timerId = setTimeout(sayHello,refleshlate);
     }
 
@@ -84,7 +82,7 @@
 
     function reset_bingo(){//リセット
       window.clearTimeout(timerId);
-      document.getElementById('test').textContent = "リセットされました";
+      document.getElementById('slot_zone').textContent = "リセットされました";
     }
 //ビンゴスタート
     function get_bingo(){//ビンゴのメイン処理
@@ -99,13 +97,8 @@
             bingo_log_element.appendChild(textnode);
             bingo_log_base.appendChild(bingo_log_element);
         }
-        if(!before_bingo == 0){//一つ前の抽選結果
-            document.getElementById("before").innerHTML = before_bingo;
-        }else{
-            document.getElementById("before").innerHTML = "抽選中…";
-        }
         //後の処理
-        document.getElementById('test').textContent = bingo_array[index];
+        document.getElementById('slot_zone').textContent = bingo_array[index];
         before_bingo = bingo_array[index];
         bingo_array.shift();
         if (bingo_array.length < index){
@@ -119,6 +112,7 @@
             document.getElementById("kekka").innerHTML = "リセット完了！";
             document.getElementById("before").innerHTML = "リセット完了！";
             console.log("bingo:手動リセット完了")
+            clearTimeout(timerId);
         }
     }
 
@@ -130,6 +124,9 @@
         }
         p{
             text-align: center;
+        }
+        li{
+            list-style-type: none;
         }
     </style>
 </html>
